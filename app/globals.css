@@ -1,26 +1,84 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #050505;
+  --surface: #0B0B0D;
+  --foreground: #F5F5F5;
+  --secondary: #A1A1AA;
+  --border: #1F1F23;
+  --accent: #3B82F6;
+  --accent-glow: #60A5FA;
+}
+
+html.light {
+  --background: #FAFAFA;
+  --surface: #FFFFFF;
+  --foreground: #09090B;
+  --secondary: #71717A;
+  --border: #E4E4E7;
+  --accent: #2563EB;
+  --accent-glow: #3B82F6;
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
   --color-foreground: var(--foreground);
+  --color-secondary: var(--secondary);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-glow: var(--accent-glow);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  background-color: var(--background);
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+::selection {
+  background-color: var(--border);
+  color: var(--foreground);
+}
+
+/* Light mode overrides for seamless theme toggling */
+html.light .bg-\[\#050505\] {
+  background-color: var(--background);
+}
+html.light .bg-\[\#0B0B0D\] {
+  background-color: var(--surface);
+}
+html.light .bg-\[\#050505\]\/85,
+html.light .bg-\[\#050505\]\/90,
+html.light .bg-\[\#050505\]\/75 {
+  background-color: rgba(250, 250, 250, 0.88);
+}
+html.light .text-\[\#F5F5F5\] {
+  color: var(--foreground);
+}
+html.light .text-\[\#A1A1AA\] {
+  color: var(--secondary);
+}
+html.light .border-\[\#1F1F23\] {
+  border-color: var(--border);
+}
+html.light .border-\[\#1F1F23\]\/80 {
+  border-color: rgba(228, 228, 231, 0.8);
+}
+html.light .selection\:bg-\[\#1F1F23\] {
+  background-color: #E4E4E7;
+}
+html.light .selection\:text-\[\#F5F5F5\] {
+  color: #09090B;
 }
