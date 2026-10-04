@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { portfolioConfig } from "@/config/portfolio";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const siteUrl = portfolioConfig.personal.siteUrl;
+  const siteUrl = portfolioConfig.studio.siteUrl;
 
   return [
     {
@@ -11,11 +11,17 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "weekly",
       priority: 1.0,
     },
-    ...portfolioConfig.navigation.map((nav) => ({
-      url: `${siteUrl}/${nav.href}`,
+    {
+      url: `${siteUrl}/about`,
       lastModified: new Date(),
-      changeFrequency: "monthly" as const,
-      priority: 0.8,
-    })),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
+    {
+      url: `${siteUrl}/contact`,
+      lastModified: new Date(),
+      changeFrequency: "monthly",
+      priority: 0.9,
+    },
   ];
 }

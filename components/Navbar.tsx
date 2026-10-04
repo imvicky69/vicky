@@ -33,7 +33,8 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const isDark = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getServerSnapshot);
 
-  const githubContact = portfolioConfig.contacts.find((c) => c.type === "github");
+  const { studio, navigation, contacts } = portfolioConfig;
+  const githubContact = contacts.find((c) => c.type === "github");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -71,39 +72,39 @@ export default function Navbar() {
       }`}
     >
       <div className="mx-auto flex h-16 max-w-5xl items-center justify-between px-6">
-        {/* Brand: X / Vicky */}
+        {/* Brand: Xweet Studio */}
         <Link
           href="/"
           className="group flex items-center gap-2.5 transition-opacity hover:opacity-90"
-          aria-label={`${portfolioConfig.personal.name} (${portfolioConfig.personal.alias}) Homepage`}
+          aria-label={`${studio.name} Homepage`}
         >
-          <div className="relative flex h-6 w-6 items-center justify-center overflow-hidden rounded-md border border-[#1F1F23] bg-[#0B0B0D] p-0.5 transition-colors group-hover:border-[#3B82F6]/50">
+          <div className="relative flex h-7 w-7 items-center justify-center overflow-hidden rounded-md border border-[#1F1F23] bg-[#0B0B0D] p-1 transition-colors group-hover:border-[#2563EB]/60">
             <Image
               src="/logo.png"
-              alt="X logo"
+              alt="Xweet logo"
               width={20}
               height={20}
               className="object-contain"
               priority
             />
           </div>
-          <div className="flex items-baseline gap-1.5">
-            <span className="font-medium text-sm tracking-tight text-[#F5F5F5]">
-              {portfolioConfig.personal.name}
+          <div className="flex items-center gap-2">
+            <span className="font-semibold text-base tracking-tight text-[#F5F5F5]">
+              {studio.name}
             </span>
-            <span className="font-mono text-xs text-[#A1A1AA]">
-              / {portfolioConfig.personal.alias.toLowerCase()}
+            <span className="rounded border border-[#1F1F23] bg-[#0B0B0D] px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-[#A1A1AA]">
+              Studio
             </span>
           </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav aria-label="Main Navigation" className="hidden items-center gap-7 md:flex">
-          {portfolioConfig.navigation.map((link) => (
+        <nav aria-label="Main Navigation" className="hidden items-center gap-6 md:flex">
+          {navigation.map((link) => (
             <Link
               key={link.name}
               href={link.href}
-              className="text-sm text-[#A1A1AA] transition-colors hover:text-[#F5F5F5]"
+              className="text-xs font-medium uppercase tracking-wider text-[#A1A1AA] transition-colors hover:text-[#F5F5F5]"
             >
               {link.name}
             </Link>
@@ -115,7 +116,7 @@ export default function Navbar() {
           <button
             type="button"
             onClick={toggleTheme}
-            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#1F1F23] bg-[#0B0B0D] text-[#A1A1AA] transition-colors hover:text-[#F5F5F5] hover:border-[#3B82F6]/40"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-[#1F1F23] bg-[#0B0B0D] text-[#A1A1AA] transition-colors hover:border-[#2563EB]/40 hover:text-[#F5F5F5]"
             aria-label={isDark ? "Switch to light theme" : "Switch to dark theme"}
             title={isDark ? "Switch to light theme" : "Switch to dark theme"}
           >
@@ -158,7 +159,7 @@ export default function Navbar() {
               href={githubContact.href}
               target="_blank"
               rel="noopener noreferrer"
-              aria-label={`${portfolioConfig.personal.name}'s GitHub Profile`}
+              aria-label={`${studio.name} GitHub Repository`}
               className="text-[#A1A1AA] transition-colors hover:text-[#F5F5F5]"
             >
               <svg
@@ -260,26 +261,26 @@ export default function Navbar() {
       {isOpen && (
         <div className="border-b border-[#1F1F23] bg-[#050505] px-6 py-5 md:hidden">
           <nav aria-label="Mobile Navigation" className="flex flex-col gap-4">
-            {portfolioConfig.navigation.map((link) => (
+            {navigation.map((link) => (
               <Link
                 key={link.name}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="text-base font-medium text-[#A1A1AA] transition-colors hover:text-[#F5F5F5]"
+                className="text-sm font-medium uppercase tracking-wider text-[#A1A1AA] transition-colors hover:text-[#F5F5F5]"
               >
                 {link.name}
               </Link>
             ))}
             <div className="mt-2 pt-4 border-t border-[#1F1F23] flex items-center justify-between">
               <span className="font-mono text-xs text-[#A1A1AA]">
-                STATUS: {portfolioConfig.personal.status}
+                STATUS: {studio.status.split("·")[0].trim()}
               </span>
               {githubContact && (
                 <a
                   href={githubContact.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-mono text-xs text-[#3B82F6] hover:underline"
+                  className="font-mono text-xs text-[#2563EB] hover:underline"
                 >
                   GitHub ↗
                 </a>

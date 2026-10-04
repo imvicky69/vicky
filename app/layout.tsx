@@ -17,8 +17,8 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const { personal, contacts } = portfolioConfig;
-const siteUrl = personal.siteUrl;
+const { studio, contacts } = portfolioConfig;
+const siteUrl = studio.siteUrl;
 const socialUrls = contacts
   .filter((c) => c.type !== "email")
   .map((c) => c.href);
@@ -33,36 +33,39 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: `${personal.name} (${personal.alias}) — Developer & Builder`,
-    template: `%s | ${personal.name} (${personal.alias})`,
+    default: "Xweet — Independent Software & Product Studio",
+    template: "%s | Xweet Studio",
   },
-  description: `Personal developer portfolio of ${personal.name} (known online as ${personal.alias}) — ${personal.role}. ${personal.tagline}`,
-  applicationName: `${personal.name} Portfolio`,
+  description:
+    "Official website for Xweet — an independent software and product studio building things worth using. Home to Infyn, Infyn DL, Indivio, and tools.",
+  applicationName: "Xweet Studio",
   authors: [
-    { name: personal.name, url: siteUrl },
-    { name: personal.alias, url: siteUrl },
+    { name: "Xweet", url: siteUrl },
+    { name: studio.builderName, url: siteUrl },
   ],
   generator: "Next.js",
   keywords: [
-    personal.name,
-    `${personal.name} developer`,
-    `${personal.name} software developer`,
-    `${personal.name} web developer`,
-    personal.alias,
-    `${personal.alias} developer`,
-    `${personal.name} projects`,
+    "Xweet",
+    "Xweet Studio",
+    "xweet.in",
     "Infyn",
     "Infyn software",
     "Infyn DL",
+    "Smiley PDF",
+    "SmileyPDF",
+    "smiley.xweet.in",
     "Indivio",
+    "indivio.xweet.in",
     "Lele",
-    "Developer Portfolio",
-    "Software Engineer",
-    "Product Builder",
+    "independent software studio",
+    "product studio",
+    "software craftsmanship",
+    "privacy-first software",
+    "Vicky Raja",
     "Full Stack Developer",
   ],
-  creator: `${personal.name} (${personal.alias})`,
-  publisher: personal.name,
+  creator: "Xweet",
+  publisher: "Xweet",
   formatDetection: {
     email: false,
     address: false,
@@ -75,24 +78,24 @@ export const metadata: Metadata = {
     type: "website",
     locale: "en_US",
     url: siteUrl,
-    title: `${personal.name} (${personal.alias}) — Developer & Builder`,
-    description: personal.bio,
-    siteName: `${personal.name} (${personal.alias}) Portfolio`,
+    title: "Xweet — Independent Software & Product Studio",
+    description: studio.subheadline,
+    siteName: "Xweet",
     images: [
       {
         url: "/logo.png",
         width: 1200,
         height: 630,
-        alt: `${personal.name} (${personal.alias}) — Developer & Builder`,
+        alt: "Xweet — Independent Software & Product Studio",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${personal.name} (${personal.alias}) — Developer & Builder`,
-    description: personal.bio,
+    title: "Xweet — Independent Software & Product Studio",
+    description: studio.subheadline,
     images: ["/logo.png"],
-    creator: `@${personal.alias.toLowerCase()}`,
+    creator: "@xweet",
   },
   robots: {
     index: true,
@@ -120,14 +123,18 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@graph": [
       {
-        "@type": "Person",
-        "@id": `${siteUrl}/#person`,
-        name: personal.name,
-        alternateName: personal.alias,
-        jobTitle: personal.role,
-        description: personal.bio,
+        "@type": "Organization",
+        "@id": `${siteUrl}/#organization`,
+        name: "Xweet",
         url: siteUrl,
-        image: `${siteUrl}/logo.png`,
+        logo: `${siteUrl}/logo.png`,
+        description: studio.subheadline,
+        founder: {
+          "@type": "Person",
+          name: studio.builderName,
+          jobTitle: studio.builderRole,
+          sameAs: socialUrls,
+        },
         sameAs: socialUrls,
         knowsAbout: [
           "Software Development",
@@ -135,6 +142,7 @@ export default function RootLayout({
           "Next.js",
           "React",
           "TypeScript",
+          "Flutter",
           "Node.js",
           "Product Engineering",
           "Privacy-focused Architecture",
@@ -144,10 +152,10 @@ export default function RootLayout({
         "@type": "WebSite",
         "@id": `${siteUrl}/#website`,
         url: siteUrl,
-        name: `${personal.name} (${personal.alias}) — Portfolio`,
-        description: `Official developer portfolio of ${personal.name} (${personal.alias})`,
+        name: "Xweet — Independent Software & Product Studio",
+        description: "Official website for Xweet — independent software, products and experiments.",
         publisher: {
-          "@id": `${siteUrl}/#person`,
+          "@id": `${siteUrl}/#organization`,
         },
         inLanguage: "en-US",
       },
@@ -158,7 +166,7 @@ export default function RootLayout({
         applicationCategory: "SecurityApplication",
         operatingSystem: "Web",
         author: {
-          "@id": `${siteUrl}/#person`,
+          "@id": `${siteUrl}/#organization`,
         },
         description:
           "Privacy-focused software ecosystem built for personal security, seamless utilities, and data sovereignty.",
@@ -166,25 +174,38 @@ export default function RootLayout({
       {
         "@type": "SoftwareApplication",
         name: "Infyn DL",
+        url: "https://infyn.software/dl",
         applicationCategory: "MultimediaApplication",
         operatingSystem: "Cross-platform",
         author: {
-          "@id": `${siteUrl}/#person`,
+          "@id": `${siteUrl}/#organization`,
         },
         description:
           "High-fidelity music streaming and audio player application within the Infyn ecosystem.",
       },
       {
         "@type": "SoftwareApplication",
-        name: "Indivio",
-        url: "https://indivio.in",
-        applicationCategory: "WebApplication",
-        operatingSystem: "Web",
+        name: "Smiley PDF",
+        url: "https://smiley.xweet.in",
+        applicationCategory: "ProductivityApplication",
+        operatingSystem: "Android",
         author: {
-          "@id": `${siteUrl}/#person`,
+          "@id": `${siteUrl}/#organization`,
         },
         description:
-          "Modern web platform engineered for performance, community engagement, and digital workflows.",
+          "Fast, private & zero-bloat PDF reader for Android with 120 FPS rendering, category folders, and 100% on-device privacy.",
+      },
+      {
+        "@type": "SoftwareApplication",
+        name: "Indivio",
+        url: "https://indivio.xweet.in",
+        applicationCategory: "WebApplication",
+        operatingSystem: "Web & Mobile",
+        author: {
+          "@id": `${siteUrl}/#organization`,
+        },
+        description:
+          "Hyperlocal food delivery platform in Nirmali, Bihar with 30-minute express delivery and live GPS tracking.",
       },
     ],
   };
